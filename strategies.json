@@ -1,0 +1,22 @@
+{
+  "strategies": [
+    {
+      "id": "00631L",
+      "label": "00631L 台灣50正2",
+      "description": "元大台灣50正2 — K線策略 v17",
+      "script": "00631L_dashboard.py",
+      "source_html": "00631L_v17_dashboard.html",
+      "output_html": "00631L.html",
+      "enabled": true
+    },
+    {
+      "id": "00675L",
+      "label": "00675L 中100正2",
+      "description": "富邦中100正2 — K線策略 v17",
+      "script": "00675L_dashboard.py",
+      "source_html": "00675L_v17_dashboard.html",
+      "output_html": "00675L.html",
+      "enabled": false
+    }
+  ]
+}
