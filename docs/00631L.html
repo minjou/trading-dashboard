@@ -165,9 +165,15 @@ function togglePwInput(){
   inp.classList.toggle('show');
   if(inp.classList.contains('show'))inp.focus();
 }
-function checkPw(){
+const PW_HASH='1f6fa6f69d185e6086d04e7330361bf9001a3b8d0ce511171055dc34eb90c1c5';
+async function sha256Hex(s){
+  const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+async function checkPw(){
   const inp=document.getElementById('pwInput');
-  if(inp.value==='min'){
+  const h=await sha256Hex(inp.value);
+  if(h===PW_HASH){
     unlocked=true;
     document.getElementById('lockBtn').innerHTML='&#x1f513;';
     inp.classList.remove('show');inp.value='';
