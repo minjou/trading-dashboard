@@ -82,18 +82,10 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--tx);
   .cb{padding:4px 10px}
   .ei{padding:6px 10px;margin:2px 4px}
 }
-/* ── Lock UI ── */
-.lock-area{display:inline-flex;align-items:center;gap:6px;margin-left:6px;flex-shrink:0}
-.lock-btn{cursor:pointer;font-size:13px;padding:2px 8px;border-radius:4px;background:var(--sf2);border:1px solid var(--bd);color:var(--tx2);line-height:1;user-select:none;font-family:sans-serif}
-.lock-btn:hover{background:var(--bd);color:var(--tx)}
-.pw-input{width:72px;padding:3px 8px;border:1px solid var(--bd);border-radius:4px;background:var(--sf2);color:var(--tx);font:12px 'JetBrains Mono',monospace;outline:none;display:none}
-.pw-input:focus{border-color:var(--bl)}
-.pw-input.show{display:block}
 </style></head><body>
 <div class="hd">
 <div class="hd-r1">
 <h1><b>00631L</b> v1.0.2</h1>
-<div class="lock-area"><button class="lock-btn" id="lockBtn" onclick="togglePwInput()">&#x1f512;</button><input class="pw-input" id="pwInput" type="password" placeholder="" onkeydown="if(event.key==='Enter')checkPw()"></div>
 <div class="hd-badges">
 <div class="sb2 long">持倉中</div>
 <div class="sb2 act hold">明日不交易</div>
@@ -101,12 +93,6 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--tx);
 <div class="hd-r1-right">
 <span style="color:var(--tx2);font:12px 'JetBrains Mono',monospace">2026-05-08 TAIEX <b style="color:var(--tx)">41603.9</b></span>
 </div>
-</div>
-<div class="hd-r2" id="chipRow" style="display:none">
-<div class="chip"><span class="cl">乖離90d</span><span class="cv">24.43%</span></div>
-<div class="chip"><span class="cl">CCI(40)</span><span class="cv">120.6</span></div>
-<div class="chip"><span class="cl">VHF(35)</span><span class="cv">0.54</span></div>
-<div class="chip"><span class="cl">ADL</span><span class="cv">-16.4%</span></div>
 </div>
 </div>
 <div class="ctl" id="tabs"></div>
@@ -141,44 +127,7 @@ const MIN_BARS=20,ZOOM_STEP=0.15;
 
 let cm={},vStart=0,vEnd=0;
 let isDragging=false,dragStartX=0,dragStartVS=0,dragMoved=false;
-let unlocked=false;
-function simpleTrig(t){
-  if(!t)return '';
-  if(t.startsWith('C1'))return '\u8d85\u8ce3\u53cd\u5f48';
-  if(t.startsWith('C2'))return '\u8da8\u52e2\u53cd\u8f49';
-  if(t.startsWith('C4'))return '\u718a\u5e02\u7d50\u69cb';
-  if(t.startsWith('C5'))return '\u6025\u8dcc\u4fdd\u8b77';
-  if(t.includes('C6')&&t.includes('\u958b'))return '\u8da8\u52e2\u958b\u555f';
-  if(t.includes('C6')&&t.includes('\u95dc'))return '\u8da8\u52e2\u95dc\u9589';
-  if(t.includes('\u81ea\u52d5'))return '\u8da8\u52e2\u6301\u5009';
-  if(t.includes('\u7b49\u5f85'))return '\u7b49\u5f85\u9032\u5834';
-  return '\u689d\u4ef6\u8b8a\u5316';
-}
-function togglePwInput(){
-  if(unlocked)return;
-  const inp=document.getElementById('pwInput');
-  inp.classList.toggle('show');
-  if(inp.classList.contains('show'))inp.focus();
-}
-const PW_HASH='1f6fa6f69d185e6086d04e7330361bf9001a3b8d0ce511171055dc34eb90c1c5';
-async function sha256Hex(s){
-  const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));
-  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
-}
-async function checkPw(){
-  const inp=document.getElementById('pwInput');
-  const h=await sha256Hex(inp.value);
-  if(h===PW_HASH){
-    unlocked=true;
-    document.getElementById('lockBtn').innerHTML='&#x1f513;';
-    inp.classList.remove('show');inp.value='';
-    document.getElementById('chipRow').style.display='flex';
-    draw();renderList();if(sE)showDt(sE);
-  } else {
-    inp.value='';inp.style.borderColor='#e85d5d';
-    setTimeout(()=>inp.style.borderColor='',1000);
-  }
-}
+// \u516c\u7248\uff1a\u79fb\u9664\u5bc6\u78bc\u9396\uff08\u8a73\u7d30\u7248\u898b 00631L_dashboard_detail.py\uff09
 
 function goAll(){
   cY='ALL';sE=null;
@@ -325,9 +274,7 @@ function draw(){
     const sx=xS(si),isE=ev.type==='entry',isSel=sE&&sE.d===ev.d;
     cx.save();cx.setLineDash([4,3]);cx.strokeStyle='#f59e0b';cx.lineWidth=isSel?1.5:0.7;cx.globalAlpha=isSel?0.9:0.4;
     cx.beginPath();cx.moveTo(sx,kP.y);cx.lineTo(sx,kP.y+kP.h);cx.stroke();cx.restore();
-    const trig=ev.triggers&&ev.triggers[0]?ev.triggers[0]:'';
-    const short=trig.replace(/^C\d+[：:]\s*/,'').slice(0,8);
-    const label=unlocked?((isE?'IN':'OUT')+(short?' '+short:'')):(isE?'IN':'OUT');
+    const label=isE?'IN':'OUT';
     cx.font='bold 9px JetBrains Mono';cx.textAlign='center';
     cx.fillStyle='#f59e0b';cx.globalAlpha=isSel?1:0.65;
     cx.fillText(label,sx,isE?kP.y+kP.h-4:kP.y+11);cx.globalAlpha=1;
@@ -391,7 +338,21 @@ function draw(){
 function renderList(){
   const el=document.getElementById('eL');
   if(!yE.length){el.innerHTML='<div style="padding:16px;color:var(--tx2);font-size:12px">\u6b64\u5e74\u5ea6\u7121\u4e8b\u4ef6</div>';return}
-  el.innerHTML=yE.map((ev,i)=>{const isE=ev.type==='entry';const sg=isE?null:SG.find(s=>s.exit_sig===ev.d);const pnlHtml=sg?` <span style="color:${sg.pnl>=0?'var(--up)':'var(--dn)'};font-weight:700">${sg.pnl>=0?'+':''}${sg.pnl.toFixed(1)}%</span>`:'';const trigTxt=unlocked?(ev.triggers[0]||''):simpleTrig(ev.triggers[0]);return`<div class="ei ${isE?'':'xt'}" data-i="${i}"><div class="em ${isE?'en':'ex'}"></div><div style="min-width:0"><div class="ed">${ev.exec_d||ev.d} <span style="color:var(--tx2);font-size:10px">${isE?'\u8cb7\u9032':'\u8ce3\u51fa'}</span>${pnlHtml}</div><div class="ep">${trigTxt}</div></div></div>`}).join('');
+  el.innerHTML=yE.map((ev,i)=>{
+    const isE=ev.type==='entry';
+    const sg=isE?SG.find(s=>s.entry_sig===ev.d&&s.exit_sig===null):SG.find(s=>s.exit_sig===ev.d);
+    let pnlHtml='', label;
+    if(isE){
+      label = sg && sg.exit_sig===null ? '00631L \u9032\u5834\uff08\u6301\u5009\u4e2d\uff09' : '00631L \u9032\u5834';
+      if(sg) pnlHtml = ` <span style="color:${sg.pnl>=0?'var(--up)':'var(--dn)'};font-weight:700">${sg.pnl>=0?'+':''}${sg.pnl.toFixed(1)}%</span>`;
+    } else {
+      const pnlSign = sg ? (sg.pnl>=0 ? '\u505c\u5229' : '\u505c\u640d') : '\u5e73\u5009';
+      label = `00631L ${pnlSign}`;
+      if(sg) pnlHtml = ` <span style="color:${sg.pnl>=0?'var(--up)':'var(--dn)'};font-weight:700">${sg.pnl>=0?'+':''}${sg.pnl.toFixed(1)}%</span>`;
+    }
+    const priceTxt = ev.etf_exec_p ? `$${ev.etf_exec_p}` : '\u2014';
+    return `<div class="ei ${isE?'':'xt'}" data-i="${i}"><div class="em ${isE?'en':'ex'}"></div><div style="min-width:0"><div class="ed">${ev.exec_d||ev.d} <span style="color:var(--tx2);font-size:11px;font-weight:500">${label}</span>${pnlHtml}</div><div class="ep">${priceTxt}</div></div></div>`;
+  }).join('');
   el.querySelectorAll('.ei').forEach(it=>it.onclick=()=>pick(yE[+it.dataset.i]))
 }
 
@@ -405,31 +366,30 @@ function pick(ev){
 function showDt(ev){
   const dp=document.getElementById('dp');dp.classList.add('show');
   const isE=ev.type==='entry';
-  const seg=isE?null:SG.find(s=>s.exit_sig===ev.d);
-  const row=OD.find(r=>r.d===ev.d);
-  let h=`<div class="dh">${ev.d} <span class="tg ${isE?'e':'x'}">${isE?'\u9032\u5834':'\u51fa\u5834'}</span></div>`;
-  h+=`<div class="ds"><h4>\u6210\u4ea4</h4><div class="ig"><div class="ic"><span class="il">\u8a0a\u865f\u65e5</span><span class="iv">${ev.d}</span></div><div class="ic"><span class="il">\u6210\u4ea4\u65e5</span><span class="iv">${ev.exec_d||'N/A'}</span></div><div class="ic"><span class="il">TAIEX</span><span class="iv">${ev.tc}</span></div><div class="ic"><span class="il">ETF\u958b\u76e4\u50f9</span><span class="iv">${ev.etf_exec_p||'N/A'}</span></div></div></div>`;
-  if(seg){const pc=seg.pnl;h+=`<div class="ds"><h4>\u640d\u76ca</h4><div class="ig"><div class="ic"><span class="il">\u8cb7</span><span class="iv">${seg.buy_p}</span></div><div class="ic"><span class="il">\u8ce3</span><span class="iv">${seg.sell_p}</span></div><div class="ic"><span class="il">\u640d\u76ca</span><span class="iv ${pc>=0?'pnl-pos':'pnl-neg'}">${pc>=0?'+':''}${pc.toFixed(2)}%</span></div><div class="ic"><span class="il">\u671f\u9593</span><span class="iv">${seg.entry_exec}~${seg.exit_exec||'\u6301\u5009\u4e2d'}</span></div></div></div>`}
-  h+=`<div class="ds"><h4>\u89f8\u767c</h4>${ev.triggers.map(t=>`<div class="tr">${unlocked?t:simpleTrig(t)}</div>`).join('')}</div>`;
-  if(unlocked&&row){
-    const KL=['k1','k2','k3','k4','k5','k6','k7'];
-    const KN=['\u9031\u7dda\u718a','\u6708\u7dda\u718a','\u50f9<MA30','ADL\u975e\u591a','Mom3M<0','CCI20<0','\u6025\u8dcc\u4fdd\u8b77'];
-    h+=`<div class="ds"><h4>\u689d\u4ef6</h4><div class="cg">${KL.map((k,i)=>`<div class="cc2 ${row[k]?'on':'off'}">${KN[i]}</div>`).join('')}</div></div>`;
-    h+=`<div class="ds"><h4>\u6307\u6a19</h4><div class="ig"><div class="ic"><span class="il">\u4e56\u96e290d</span><span class="iv${row.dev!==null&&row.dev<-5?' on':row.dev!==null&&row.dev>15?' on':''}">${row.dev!==null?row.dev+'%':'N/A'}</span></div><div class="ic"><span class="il">CCI20</span><span class="iv${row.cci!==null&&(row.cci>200||row.cci<-200)?' on':''}">${row.cci!==null?row.cci:'N/A'}</span></div><div class="ic"><span class="il">ADL</span><span class="iv${Math.abs(row.adl)>0.3?' on':''}">${(row.adl*100).toFixed(1)}%</span></div><div class="ic"><span class="il">VHF(35)</span><span class="iv${row.vhf!==null&&row.vhf>0.2?' on':''}">${row.vhf!==null?row.vhf:'N/A'}</span></div><div class="ic"><span class="il">\u6210\u4ea4\u91cf</span><span class="iv">${row.vol}\u5104</span></div></div></div>`;
+  const seg=isE?SG.find(s=>s.entry_sig===ev.d&&s.exit_sig===null):SG.find(s=>s.exit_sig===ev.d);
+  let label;
+  if(isE){
+    label = seg && seg.exit_sig===null ? '00631L \u9032\u5834\uff08\u6301\u5009\u4e2d\uff09' : '00631L \u9032\u5834';
+  } else {
+    const pnlSign = seg ? (seg.pnl>=0 ? '\u505c\u5229' : '\u505c\u640d') : '\u5e73\u5009';
+    label = `00631L ${pnlSign}`;
   }
-  dp.innerHTML=h
+  const tgClass=isE?'e':'x';
+  let h=`<div class="dh">${ev.d} <span class="tg ${tgClass}">${label}</span></div>`;
+  h+=`<div class="ds"><h4>\u6210\u4ea4</h4><div class="ig"><div class="ic"><span class="il">\u65e5\u671f</span><span class="iv">${ev.exec_d||ev.d}</span></div><div class="ic"><span class="il">00631L \u958b\u76e4</span><span class="iv">$${ev.etf_exec_p||'N/A'}</span></div></div></div>`;
+  if(seg){
+    const pc=seg.pnl;
+    const sellLabel=seg.exit_sig===null?'\u76ee\u524d\u50f9':'\u8ce3\u51fa';
+    const pnlLabel=seg.exit_sig===null?'\u9810\u4f30\u640d\u76ca':'\u640d\u76ca';
+    h+=`<div class="ds"><h4>${pnlLabel}</h4><div class="ig"><div class="ic"><span class="il">\u8cb7\u9032</span><span class="iv">$${seg.buy_p}</span></div><div class="ic"><span class="il">${sellLabel}</span><span class="iv">$${seg.sell_p}</span></div><div class="ic"><span class="il">${pnlLabel}</span><span class="iv ${pc>=0?'pnl-pos':'pnl-neg'}">${pc>=0?'+':''}${pc.toFixed(2)}%</span></div><div class="ic"><span class="il">\u671f\u9593</span><span class="iv">${seg.entry_exec}~${seg.exit_exec||'\u6301\u5009\u4e2d'}</span></div></div></div>`;
+  }
+  dp.innerHTML=h;
 }
 
 function showDayInfo(r){
   const dp=document.getElementById('dp');dp.classList.add('show');
   let h=`<div class="dh">${r.d} <span style="font-size:12px;color:${r.pos?'var(--bl)':'var(--tx2)'}">${r.pos?'\u6301\u5009':'\u7a7a\u624b'}</span></div>`;
   h+=`<div class="ds"><h4>TAIEX</h4><div class="ig"><div class="ic"><span class="il">\u958b</span><span class="iv">${r.o}</span></div><div class="ic"><span class="il">\u9ad8</span><span class="iv">${r.h}</span></div><div class="ic"><span class="il">\u4f4e</span><span class="iv">${r.l}</span></div><div class="ic"><span class="il">\u6536</span><span class="iv">${r.c}</span></div></div></div>`;
-  if(unlocked){
-    const KL=['k1','k2','k3','k4','k5','k6','k7'];
-    const KN=['\u9031\u7dda\u718a','\u6708\u7dda\u718a','\u50f9<MA30','ADL\u975e\u591a','Mom3M<0','CCI20<0','\u6025\u8dcc\u4fdd\u8b77'];
-    h+=`<div class="ds"><h4>\u6307\u6a19</h4><div class="ig"><div class="ic"><span class="il">\u4e56\u96e290d</span><span class="iv${r.dev!==null&&(r.dev<-5||r.dev>15)?' on':''}">${r.dev!==null?r.dev+'%':'N/A'}</span></div><div class="ic"><span class="il">CCI(20)</span><span class="iv${r.cci!==null&&(r.cci>200||r.cci<-200)?' on':''}">${r.cci!==null?r.cci:'N/A'}</span></div><div class="ic"><span class="il">ADL</span><span class="iv${Math.abs(r.adl)>0.3?' on':''}">${(r.adl*100).toFixed(1)}%</span></div><div class="ic"><span class="il">VHF(35)</span><span class="iv${r.vhf!==null&&r.vhf>0.2?' on':''}">${r.vhf!==null?r.vhf:'N/A'}</span></div><div class="ic"><span class="il">\u6210\u4ea4\u91cf</span><span class="iv">${r.vol}\u5104</span></div></div></div>`;
-    h+=`<div class="ds"><h4>\u689d\u4ef6</h4><div class="cg">${KL.map((k,i)=>`<div class="cc2 ${r[k]?'on':'off'}">${KN[i]}</div>`).join('')}</div></div>`;
-  }
   dp.innerHTML=h;
   sE=null;draw();
   document.querySelectorAll('.ei').forEach(el=>el.classList.remove('on'));
@@ -552,22 +512,6 @@ cv.addEventListener('mousemove',e=>{
 
   let html=`<b>${r.d}</b> ${r.pos?'<span style="color:var(--bl)">\u6301\u5009</span>':'<span style="color:var(--tx2)">\u7a7a\u624b</span>'}`;
   html+=`<br>\u958b${r.o} \u9ad8${r.h} \u4f4e${r.l} \u6536${r.c}`;
-  if(unlocked){
-    const mas=[];
-    if(r.ma20)mas.push(`<span style="color:#00bcd4">M20:${r.ma20}</span>`);
-    if(r.ma60)mas.push(`<span style="color:#a282f6">M60:${r.ma60}</span>`);
-    if(r.ma240)mas.push(`<span style="color:#ffa500">M240:${r.ma240}</span>`);
-    if(mas.length)html+=`<br>${mas.join(' ')}`;
-    const devC=r.dev!==null?(r.dev<-5||r.dev>15?'color:#e85d5d':'color:var(--tx)'):'';
-    const cciC=r.cci!==null?(r.cci<-200||r.cci>200?'color:#e85d5d':'color:var(--tx)'):'';
-    const adlC=Math.abs(r.adl)>0.3?'color:#e85d5d':'color:var(--tx)';
-    const vhfC=r.vhf!==null?(r.vhf>0.2?'color:var(--bl)':'color:var(--tx)'):'';
-    html+=`<br><span style="${devC}">\u4e56\u96e2:${r.dev!==null?r.dev+'%':'N/A'}</span> <span style="${cciC}">CCI:${r.cci!==null?r.cci:'N/A'}</span>`;
-    html+=`<br><span style="${adlC}">ADL:${(r.adl*100).toFixed(1)}%</span> <span style="${vhfC}">VHF:${r.vhf!==null?r.vhf:'N/A'}</span>`;
-    const KL=['k1','k2','k3','k4','k5','k6','k7'];
-    const condOn=KL.reduce((n,k)=>n+(r[k]?1:0),0);
-    if(condOn>0)html+=`<br>\u718a\u5e02\u689d\u4ef6: <span style="color:#e85d5d">${condOn}/7</span>`;
-  }
 
   tip.style.display='block';
   let tx=e.clientX+14,ty=e.clientY-60;
