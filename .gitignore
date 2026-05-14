@@ -2,4 +2,25 @@ __pycache__/
 *.pyc
 .env
 *.log
-scripts/*.html
+*.bat
+*.csv
+*.parquet
+*.npy
+*.pkl
+*.feather
+*.tsv
+# strategy code (kept local only)
+scripts/
+us/
+publish.py
+strategies.json
+AUTO_PUBLISH_GUIDE.md
+# Backup files
+*_old.py
+*_v[0-9]*.py
+*_detail.py
+.agents/
+.claude/
+.windsurf/
+.vscode/
+skills-lock.json
