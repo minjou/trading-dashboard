@@ -6,31 +6,36 @@
 <title>Trading Dashboards</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap');
-:root {--bg:#0f1118;--sf:#181c28;--sf2:#1e2333;--bd:#2a3042;--tx:#e2e6ef;--tx2:#8b93a8;--up:#ef4444;--bl:#3b82f6;--sh:#a855f7;}
+:root {
+  --bg:#0f1118;--sf:#181c28;--sf2:#1e2333;--bd:#2a3042;
+  --tx:#e2e6ef;--tx2:#8b93a8;
+  --bl:#3b82f6;--sh:#a855f7;--up:#ef4444;
+}
 *{margin:0;padding:0;box-sizing:border-box;}
 body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;padding:40px 20px;}
 .site-header{max-width:720px;margin:0 auto 36px;display:flex;align-items:baseline;gap:16px;border-bottom:1px solid var(--bd);padding-bottom:16px;}
-.site-header h1{font-size:22px;font-weight:700;} .site-header h1 span{color:var(--up);}
+.site-header h1{font-size:22px;font-weight:700;}
+.site-header h1 span{background:linear-gradient(90deg,var(--bl) 0%,var(--sh) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;}
 .gen-time{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--tx2);margin-left:auto;}
 .grid{max-width:720px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;}
 .card{position:relative;display:block;text-decoration:none;background:var(--sf);border:1px solid var(--bd);border-radius:8px;padding:20px 22px;transition:border-color .15s,background .15s,box-shadow .15s;overflow:hidden;}
 .card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--bl) 0%,var(--sh) 100%);opacity:.85;}
 .card:hover{border-color:transparent;background:var(--sf2);box-shadow:0 0 0 1.5px var(--bl),0 0 16px -2px rgba(168,85,247,.45);}
-.card:hover::before{opacity:1;height:4px;}
 .card-header{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
 .ticker{font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:700;background:linear-gradient(90deg,var(--bl) 0%,var(--sh) 100%);-webkit-background-clip:text;background-clip:text;color:transparent;}
 .badge{font-size:10px;padding:2px 8px;border-radius:3px;background:rgba(59,130,246,.15);color:var(--bl);border:1px solid rgba(59,130,246,.3);text-transform:uppercase;letter-spacing:.5px;}
-.badge.beta{background:rgba(245,158,11,.15);color:#f59e0b;border-color:rgba(245,158,11,.4);}
+.badge.beta{background:rgba(168,85,247,.15);color:var(--sh);border-color:rgba(168,85,247,.35);}
 .card-desc{font-size:13px;color:var(--tx2);margin-bottom:16px;line-height:1.5;}
 .card-footer{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--bd);padding-top:12px;}
 .updated{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--tx2);}
-.arrow{font-size:16px;color:var(--bl);transition:transform .15s;} .card:hover .arrow{transform:translateX(4px);}
+.arrow{font-size:16px;color:var(--sh);transition:transform .15s;}
+.card:hover .arrow{transform:translateX(4px);}
 </style>
 </head>
 <body>
 <header class="site-header">
   <h1>Trading <span>Dashboards</span></h1>
-  <span class="gen-time">Generated: 2026-05-14 22:29 TST</span>
+  <span class="gen-time">Generated: 2026-05-14 22:58 TST</span>
 </header>
 <main class="grid">
     <a class="card" href="00631L_632R.html">
@@ -40,7 +45,7 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--tx);
       </div>
       <div class="card-desc">台灣 2x 做多 + 反向避險策略</div>
       <div class="card-footer">
-        <span class="updated">更新：2026-05-14 22:29 TST</span>
+        <span class="updated">更新：2026-05-14 22:58 TST</span>
         <span class="arrow">→</span>
       </div>
     </a>
@@ -51,7 +56,7 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--tx);
       </div>
       <div class="card-desc">QQQ 3x 做多 + 反向避險策略</div>
       <div class="card-footer">
-        <span class="updated">更新：2026-05-14 22:29 TST</span>
+        <span class="updated">更新：2026-05-14 22:58 TST</span>
         <span class="arrow">→</span>
       </div>
     </a></main>
