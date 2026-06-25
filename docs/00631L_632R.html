@@ -13,10 +13,13 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--tx);
 .hd-r1{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:6px}
 .hd h1{font-size:18px;font-weight:700;white-space:nowrap} .hd h1 b{color:var(--bl)} .hd h1 i{color:var(--sh);font-style:normal}
 .hd-badges{display:flex;gap:8px;align-items:center}
-.sb2{padding:4px 14px;border-radius:6px;font-weight:600;font-size:13px;letter-spacing:.5px}
+.sb2{padding:4px 14px;border-radius:6px;font-weight:600;font-size:13px;letter-spacing:.5px;display:inline-flex;align-items:baseline;gap:6px}
+.sb2 .sb2-lb{font-size:10px;font-weight:500;color:var(--tx2);letter-spacing:1px;text-transform:uppercase}
 .sb2.long{background:var(--bl2);color:#6daaff;border:1.5px solid rgba(59,130,246,.4)}
 .sb2.short{background:var(--sh2);color:#c084fc;border:1.5px solid rgba(168,85,247,.4)}
 .sb2.flat{background:rgba(139,147,168,.1);color:#9aa3b8;border:1.5px solid rgba(139,147,168,.2)}
+.sb2.hold{background:rgba(139,147,168,.1);color:#9aa3b8;border:1.5px dashed rgba(139,147,168,.3)}
+.sb2.action{background:rgba(245,158,11,.15);color:var(--am);border:1.5px solid rgba(245,158,11,.5)}
 .hd-r1-right{margin-left:auto;display:flex;gap:8px;align-items:center}
 .hd-r2{display:flex;align-items:center;gap:6px;padding-bottom:8px;overflow-x:auto;scrollbar-width:none}
 .hd-r2::-webkit-scrollbar{display:none}
@@ -71,7 +74,8 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--tx);
 <div class="hd-r1">
 <h1><b>00631L</b> + <i>00632R</i> 多空切換</h1>
 <div class="hd-badges">
-<div class="sb2 long">持有 00631L</div>
+<div class="sb2 long"><span class="sb2-lb">目前</span>持有 00631L</div>
+<div class="sb2 hold"><span class="sb2-lb">下個開盤日</span>維持 00631L</div>
 </div>
 <div class="hd-r1-right">
 <span style="color:var(--tx2);font:12px 'JetBrains Mono',monospace">2026-06-25 TAIEX <b style="color:var(--tx)">46255.3</b> 00631L <b style="color:var(--tx)">$38.16</b> 00632R <b style="color:var(--tx)">$10.04</b></span>
