@@ -1,64 +1,31 @@
 <!DOCTYPE html><html lang="zh-Hant"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
-<title>TXF 模擬盤觀察(BETA)</title>
+<title>TXF 組合策略 模擬觀察(BETA)</title>
 <style>body{font-family:'Microsoft JhengHei',sans-serif;max-width:1000px;margin:24px auto;padding:0 16px;color:#111}
 table{border-collapse:collapse;width:100%;margin:12px 0}td,th{border:1px solid #ddd;padding:6px 10px;font-size:14px}
 th{background:#f3f4f6}.kpi{display:inline-block;background:#f3f4f6;border-radius:8px;padding:10px 18px;margin:4px 8px 4px 0}
 .kpi b{display:block;font-size:20px}.note{background:#fffbeb;border-left:4px solid #d97706;padding:10px 14px;margin:14px 0;font-size:14px}</style>
 </head><body>
-<h1>台指期(小台)四腿策略 — 模擬盤即時觀察 <span style="font-size:14px;color:#d97706">BETA</span></h1>
-<p>永豐 Shioaji 模擬撮合、真實市場報價。觀察起點(真 OOS):<b>2026-07-07</b>,參數已凍結。</p>
+<h1>台指期(小台)組合策略 — 模擬觀察 <span style="font-size:14px;color:#d97706">BETA</span></h1>
+<p>四支策略(編號 S41 / S61 / N12 / L3),合計 6 口、資金基準 NT$120 萬(20 萬/口)。
+真實市場報價之模擬紀錄,含手續費/期交稅/滑價。觀察起點:<b>2026-07-13</b>。</p>
 <div>
-<span class="kpi"><b>NT$813,700</b>名目權益(80萬+損益)</span>
-<span class="kpi"><b>+NT$13,700</b>累積損益</span>
-<span class="kpi"><b>3</b>觀察交易日</span>
-<span class="kpi"><b>1 口</b>目前淨部位</span></div>
-<h2>權益曲線</h2>
-<svg viewBox="0 0 960 320" style="width:100%;max-width:960px;background:#fff;border:1px solid #e5e7eb;border-radius:8px">
-<polyline points="48.0,272.0 480.0,272.0 912.0,48.0" fill="none" stroke="#2563eb" stroke-width="2"/>
-<text x="48" y="306" font-size="12" fill="#6b7280">2026-07-07</text>
-<text x="912" y="306" font-size="12" fill="#6b7280" text-anchor="end">2026-07-09</text>
-<text x="48" y="20" font-size="12" fill="#6b7280">高 813,700</text>
-<text x="48" y="274" font-size="12" fill="#6b7280">低 800,000</text>
-</svg>
-<h2>成交紀錄(最近 100 筆)</h2>
-<table><tr><th>時間</th><th>合約</th><th>方向</th><th>價格</th><th>口數</th></tr><tr><td>2026-07-09 15:20:20</td><td>MXFG6</td><td>Buy</td><td style='text-align:right'>45843.0</td><td style='text-align:right'>1</td></tr><tr><td>2026-07-09 13:39:01</td><td>MXFG6</td><td>Sell</td><td style='text-align:right'>45559.0</td><td style='text-align:right'>1</td></tr><tr><td>2026-07-09 02:50:18</td><td>MXFG6</td><td>Buy</td><td style='text-align:right'>45854.0</td><td style='text-align:right'>1</td></tr><tr><td>2026-07-07 11:59:41</td><td></td><td></td><td style='text-align:right'></td><td style='text-align:right'></td></tr><tr><td>2026-07-07 09:35:36</td><td></td><td></td><td style='text-align:right'></td><td style='text-align:right'></td></tr><tr><td>2026-07-07 09:35:36</td><td></td><td></td><td style='text-align:right'></td><td style='text-align:right'></td></tr><tr><td>2026-07-07 09:05:20</td><td></td><td></td><td style='text-align:right'></td><td style='text-align:right'></td></tr></table>
-<h2>年度對照(回測):策略 vs 0050 vs 台灣50正2</h2>
-<p style="font-size:14px;color:#374151">每年 1/1 以 NT$100 萬重新起算、不複利;ETF 為還原價(含息)年初買抱到年底;
-策略含手續費/期交稅/滑價。* = 未滿一年(資料至 2026-07-13)。</p>
-<div style="overflow-x:auto"><table>
-<tr><th>年</th><th>策略損益 NT$</th><th>策略報酬</th><th>策略MDD</th>
-<th>0050 報酬</th><th>0050 MDD</th><th>正2 報酬</th><th>正2 MDD</th></tr><tr><td>2021</td><td style='text-align:right'>+325,210</td><td style='text-align:right'>+32.5%</td><td style='text-align:right'>-7.2%</td><td style='text-align:right'>+19.9%</td><td style='text-align:right'>-10.4%</td><td style='text-align:right'>+57.2%</td><td style='text-align:right'>-24.1%</td></tr><tr><td>2022</td><td style='text-align:right'>+53,140</td><td style='text-align:right'>+5.3%</td><td style='text-align:right'>-6.6%</td><td style='text-align:right'>-21.7%</td><td style='text-align:right'>-33.8%</td><td style='text-align:right'>-36.7%</td><td style='text-align:right'>-51.3%</td></tr><tr><td>2023</td><td style='text-align:right'>+345,652</td><td style='text-align:right'>+34.6%</td><td style='text-align:right'>-9.9%</td><td style='text-align:right'>+26.9%</td><td style='text-align:right'>-7.1%</td><td style='text-align:right'>+60.8%</td><td style='text-align:right'>-14.5%</td></tr><tr><td>2024</td><td style='text-align:right'>+879,882</td><td style='text-align:right'>+88.0%</td><td style='text-align:right'>-8.8%</td><td style='text-align:right'>+49.3%</td><td style='text-align:right'>-21.3%</td><td style='text-align:right'>+60.3%</td><td style='text-align:right'>-37.2%</td></tr><tr><td>2025</td><td style='text-align:right'>+926,622</td><td style='text-align:right'>+92.7%</td><td style='text-align:right'>-8.7%</td><td style='text-align:right'>+38.1%</td><td style='text-align:right'>-27.5%</td><td style='text-align:right'>+54.8%</td><td style='text-align:right'>-50.2%</td></tr><tr><td>2026*</td><td style='text-align:right'>+1,859,153</td><td style='text-align:right'>+185.9%</td><td style='text-align:right'>-18.8%</td><td style='text-align:right'>+61.7%</td><td style='text-align:right'>-10.8%</td><td style='text-align:right'>+118.7%</td><td style='text-align:right'>-21.2%</td></tr><tr style='font-weight:bold;background:#f9fafb'><td>合計(單利)</td><td style='text-align:right'>+4,389,659</td><td style='text-align:right'>+439.0%</td><td></td><td style='text-align:right'>+174.2%</td><td></td><td style='text-align:right'>+315.1%</td><td></td></tr></table></div>
-<p style="font-size:13px;color:#6b7280">註:2021-2025 為策略參數優化期間,數字帶樣本內樂觀;
-乾淨樣本外 = 2020、2026、以及本頁的模擬盤即時紀錄。策略 MDD 以「100萬+當年累積損益」的資金曲線計算。
-⚠ 資金基準 100 萬 ≈ 滿倉 5 口原始保證金:滿倉遇大回撤需另備資金,有斷頭風險。</p>
-<hr style="margin:28px 0;border:none;border-top:2px solid #e5e7eb">
-<h1>B 組(第二資金線)— paper 模擬觀察 <span style="font-size:14px;color:#d97706">BETA</span></h1>
-<p>成分(以策略編號):<b>S41</b>(日K Amihud)+<b>S61</b>(日K FIP)+<b>N12</b>(量能棒 MACD)+<b>L3</b>(力道×3)
-= 6 口/150 萬,純多,paper-book(約定價成交:訊號棒後下一根 1 分 K 開盤,含費稅滑價)。
-觀察起點(真 OOS):<b>2026-07-13</b>,規格已凍結。</p>
-<p style='font-size:13px;color:#6b7280'>武裝狀態(上線時已在多的腿不採計,訊號歸零後的新進場才計入):S41:✓、S61:未武裝、N12:未武裝、L3:✓</p>
-<div>
-<span class="kpi"><b>NT$1,500,000</b>名目權益(150萬+損益)</span>
-<span class="kpi"><b>+NT$0</b>累積損益(自 go_live)</span>
+<span class="kpi"><b>NT$1,200,000</b>名目權益(120萬+損益)</span>
+<span class="kpi"><b>+NT$0</b>累積損益(自觀察起點)</span>
 <span class="kpi"><b>1</b>觀察交易日</span>
 <span class="kpi"><b>0 口</b>目前淨部位</span></div>
-<h2>B 組權益曲線</h2>
+<h2>權益曲線</h2>
 <p style='color:#6b7280'>權益曲線:資料累積中(≥2 個交易日後顯示)。</p>
-<h2>B 組進出紀錄(最近 100 筆)</h2>
-<p style='color:#6b7280'>尚無成交紀錄(武裝機制:等各腿訊號歸零後的新進場)。</p>
-<h2>B 組年度對照(回測):B vs 0050 vs 台灣50正2</h2>
+<h2>進出紀錄(最近 100 筆)</h2>
+<p style='color:#6b7280'>尚無成交紀錄。</p>
+<h2>年度對照(回測):組合 vs 0050 vs 台灣50正2</h2>
 <p style="font-size:14px;color:#374151">每年 1/1 以 NT$120 萬重新起算、不複利;ETF 為還原價(含息)年初買抱到年底;
-B 組含手續費/期交稅/滑價(paper 同口徑)。* = 未滿一年(資料至 2026-07-14)。</p>
+組合數字含手續費/期交稅/滑價。* = 未滿一年(資料至 2026-07-14)。</p>
 <div style="overflow-x:auto"><table>
-<tr><th>年</th><th>B 損益 NT$</th><th>B 報酬</th><th>B MDD</th>
+<tr><th>年</th><th>組合損益 NT$</th><th>組合報酬</th><th>組合MDD</th>
 <th>0050 報酬</th><th>0050 MDD</th><th>正2 報酬</th><th>正2 MDD</th></tr><tr><td>2021</td><td style='text-align:right'>+483,499</td><td style='text-align:right'>+40.3%</td><td style='text-align:right'>-14.5%</td><td style='text-align:right'>+19.9%</td><td style='text-align:right'>-10.4%</td><td style='text-align:right'>+57.2%</td><td style='text-align:right'>-24.1%</td></tr><tr><td>2022</td><td style='text-align:right'>-59,425</td><td style='text-align:right'>-5.0%</td><td style='text-align:right'>-21.8%</td><td style='text-align:right'>-21.7%</td><td style='text-align:right'>-33.8%</td><td style='text-align:right'>-36.7%</td><td style='text-align:right'>-51.3%</td></tr><tr><td>2023</td><td style='text-align:right'>+734,098</td><td style='text-align:right'>+61.2%</td><td style='text-align:right'>-7.7%</td><td style='text-align:right'>+26.9%</td><td style='text-align:right'>-7.1%</td><td style='text-align:right'>+60.8%</td><td style='text-align:right'>-14.5%</td></tr><tr><td>2024</td><td style='text-align:right'>+945,804</td><td style='text-align:right'>+78.8%</td><td style='text-align:right'>-12.7%</td><td style='text-align:right'>+49.3%</td><td style='text-align:right'>-21.3%</td><td style='text-align:right'>+60.3%</td><td style='text-align:right'>-37.2%</td></tr><tr><td>2025</td><td style='text-align:right'>+1,597,290</td><td style='text-align:right'>+133.1%</td><td style='text-align:right'>-16.4%</td><td style='text-align:right'>+38.1%</td><td style='text-align:right'>-27.5%</td><td style='text-align:right'>+54.8%</td><td style='text-align:right'>-50.2%</td></tr><tr><td>2026*</td><td style='text-align:right'>+2,839,181</td><td style='text-align:right'>+236.6%</td><td style='text-align:right'>-15.6%</td><td style='text-align:right'>+61.6%</td><td style='text-align:right'>-10.8%</td><td style='text-align:right'>+118.9%</td><td style='text-align:right'>-21.2%</td></tr><tr style='font-weight:bold;background:#f9fafb'><td>合計(單利)</td><td style='text-align:right'>+6,540,447</td><td style='text-align:right'>+545.0%</td><td></td><td style='text-align:right'>+174.1%</td><td></td><td style='text-align:right'>+315.3%</td><td></td></tr></table></div>
-<p style="font-size:13px;color:#6b7280">註:2021-2025 為素材選擇/優化期間,數字帶樣本內樂觀;
-乾淨樣本外 = 2026 與本頁 paper 即時紀錄。已知性格:2022 型空頭年整年橫盤。
-⚠ 資金基準 120 萬 ≈ 滿倉 6 口原始保證金:滿倉遇大回撤需另備資金。</p>
-<p style="font-size:13px;color:#6b7280">判準:真 OOS Sharpe ≥1.2 符合/0.3-1.2 觀察/虧損或 MDD>35% 停;
-回測性格:空頭年(如 2022)可能整年橫盤,判準看 Sharpe/MDD 不看多久沒創高。</p>
-<div class="note"><b>說明:</b>此頁為策略凍結後的樣本外(OOS)觀察,非投資建議。模擬成交以市價 IOC 撮合,
-含滑價與費用之真實近似。判準:觀察 3-6 個月,OOS Sharpe ≥1.0 符合預期、0.3-1.0 續觀察、虧損或回撤超過回測水準即停。</div>
-<p style="color:#9ca3af;font-size:12px">更新:2026-07-13 11:32(每日自動)</p>
+<p style="font-size:13px;color:#6b7280">2026 之前為回測(樣本內),即時紀錄見上方模擬帳。
+⚠ 資金基準 120 萬 ≈ 滿倉 6 口原始保證金,遇大回撤需另備資金。</p>
+<div class="note"><b>說明:</b>本頁為模擬觀察紀錄,非投資建議。</div>
+<p style="color:#9ca3af;font-size:12px">更新:2026-07-13 22:50(每日自動)</p>
 </body></html>
